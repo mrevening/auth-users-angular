@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -97,6 +100,37 @@
               "src/styles.css"
             ],
             "scripts": []
+          }
+        }
+      }
+    },
+    "login-library": {
+      "projectType": "library",
+      "root": "projects/login-library",
+      "sourceRoot": "projects/login-library/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/login-library/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/login-library/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/login-library/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/login-library/src/test.ts",
+            "tsConfig": "projects/login-library/tsconfig.spec.json",
+            "karmaConfig": "projects/login-library/karma.conf.js"
           }
         }
       }
