@@ -1,21 +1,5 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'lib-login-library',
-//   templateUrl: 'login-library.component.html',
-//   styles: [
-//   ]
-// })
-// export class LoginLibraryComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
 
@@ -28,10 +12,17 @@ import { AuthService } from './auth/auth.service';
 export class LoginLibraryComponent {
   message: string;
   userValue: string;
+  heroForm: FormGroup;
 
   constructor(public authService: AuthService, public router: Router) {
     this.message = this.getMessage();
     this.userValue = "";
+    this.heroForm = new FormGroup({
+      name: new FormControl(this.userValue, [
+        Validators.required,
+        Validators.pattern('[a-zA-Z1-9_-]*')
+      ])
+    });
   }
 
   getMessage() {
