@@ -27,24 +27,26 @@ import { AuthService } from './auth/auth.service';
 })
 export class LoginLibraryComponent {
   message: string;
+  userValue: string;
 
   constructor(public authService: AuthService, public router: Router) {
     this.message = this.getMessage();
+    this.userValue = "";
   }
 
   getMessage() {
     return 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
   }
 
-  login() {
+  login(loginValue: string) {
     this.message = 'Trying to log in ...';
 
-    this.authService.login().subscribe(() => {
+    this.authService.login(loginValue).subscribe(() => {
       this.message = this.getMessage();
       if (this.authService.isLoggedIn) {
         // Usually you would use the redirect URL from the auth service.
-        // However to keep the example simple, we will always redirect to `/admin`.
-        const redirectUrl = '/admin';
+        // However to keep the example simple, we will always redirect to `/`.
+        const redirectUrl = this.authService.redirectUrl
 
         // Redirect the user
         this.router.navigate([redirectUrl]);

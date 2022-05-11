@@ -12,7 +12,9 @@ export class AuthService {
   // store the URL so we can redirect after logging in
   redirectUrl: string | null = null;
 
-  login(): Observable<boolean> {
+  login(inputValue: string): Observable<boolean> {
+    console.log(`Krysia, I think here should be http api call with login ${inputValue}`)
+    
     return of(true).pipe(
       delay(1000),
       tap(() => this.isLoggedIn = true)

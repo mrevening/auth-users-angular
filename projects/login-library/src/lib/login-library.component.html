@@ -1,6 +1,47 @@
-<h2>Login</h2>
+<!-- <h2>Login</h2>
 <p>{{message}}</p>
 <p>
-  <button type="button" (click)="login()"  *ngIf="!authService.isLoggedIn">Login</button>
-  <button type="button" (click)="logout()" *ngIf="authService.isLoggedIn">Logout</button>
-</p>
+  <ng-template [ngIf]="!authService.isLoggedIn">
+    <input type="text" id="name" name="name" class="form-control" required [(ngModel)]="loginValue">
+
+    <div *ngIf="name.invalid && (name.dirty || name.touched)"
+      class="alert">
+
+    <div *ngIf="name.errors?.['required']">
+      Name is required.
+    </div>
+
+    </div>
+
+
+    <button type="button" (click)="login(loginValue)">Login</button>
+  </ng-template>
+  
+  <button type="button" (click)="logout()"  *ngIf="authService.isLoggedIn">Logout</button>
+  
+</p> -->
+
+<ng-template [ngIf]="!authService.isLoggedIn">
+  <div class="container">
+
+      <h1>Login</h1>
+      <form (ngSubmit)="login(userValue)" #heroForm="ngForm">
+        <div class="form-group">
+          <label for="name">UserName</label>
+          <input type="text" class="form-control" id="name"
+                required
+                [(ngModel)]="userValue" name="name"
+                #name="ngModel">
+          <div [hidden]="name.valid || name.pristine"
+              class="alert alert-danger">
+            Name is required
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
+      </form>
+
+  </div>
+</ng-template>
+
+<button type="button" (click)="logout()"  *ngIf="authService.isLoggedIn">Logout</button>
